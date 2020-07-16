@@ -25,13 +25,18 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-
-    @author = Author.all.map { |map| [map.last_name] } 
-
+    
+    authors_id = params['book']['author'].reject(&:blank?)
+    
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
+        
+        authors_id.each do |ids|
+          @book.authors << Author.find(ids)
+        end
+      
       else
         format.html { render :new }
         format.json { render json: @book.errors, status: :unprocessable_entity }

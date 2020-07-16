@@ -16,10 +16,11 @@
     <%= form.text_field :book_title %>
   </div>
 
-  <div class="field">
-    <%= form.label Author %>
-   <% author_array = Author.all.map { |map| [map.last_name] } %>
-   <%= select_tag 'Author', options_for_select(author_array) %>
+  <div class = "field">
+    <%= form.select(:author, Author.all.collect {|p| [ p.last_name, p.id ] },
+                                           { :prompt => "Authors"},
+                                           { :multiple => true, :size => 5 }) %>
+
   </div>
 
   <div class="actions">
