@@ -1,6 +1,5 @@
 class AuthorsController < ApplicationController
-  before_action :set_author, only: [:destroy]
-
+  before_action :set_author, only: [:destroy, :show, :edit, :update]
   # GET /authors
   # GET /authors.json
   def index
@@ -9,9 +8,13 @@ class AuthorsController < ApplicationController
 
   # GET /authors/1
   # GET /authors/1.json
+ 
   def show
-    @author = Author.find(params[:id])
-    render json: {Author: @author, Book: @author.books }, status: :ok
+
+    respond_to do |format|
+      format.html
+      format.json { render json:  {author: @author, book: @author.books } }
+    end
   end
 
   # GET /authors/new
@@ -33,7 +36,7 @@ class AuthorsController < ApplicationController
         format.html { redirect_to @author, notice: 'Author was successfully created.' }
         format.json { render :show, status: :created, location: @author }
       else
-        format.html { render :new }
+        format.html { render :show }
         format.json { render json: @author.errors, status: :unprocessable_entity }
       end
     end
@@ -47,7 +50,7 @@ class AuthorsController < ApplicationController
         format.html { redirect_to @author, notice: 'Author was successfully updated.' }
         format.json { render :show, status: :ok, location: @author }
       else
-        format.html { render :edit }
+        format.html { render :show }
         format.json { render json: @author.errors, status: :unprocessable_entity }
       end
     end
@@ -68,6 +71,7 @@ class AuthorsController < ApplicationController
     def set_author
       @author = Author.find(params[:id])
     end
+
 
     # Only allow a list of trusted parameters through.
     def author_params
