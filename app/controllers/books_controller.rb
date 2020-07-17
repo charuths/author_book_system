@@ -10,6 +10,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    render json: {Author: @book, Book: @book.authors }, status: :ok
   end
 
   # GET /books/new

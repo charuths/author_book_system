@@ -1,5 +1,5 @@
 class AuthorsController < ApplicationController
-  before_action :set_author, only: [:show, :edit, :update, :destroy]
+  before_action :set_author, only: [:destroy]
 
   # GET /authors
   # GET /authors.json
@@ -10,6 +10,7 @@ class AuthorsController < ApplicationController
   # GET /authors/1
   # GET /authors/1.json
   def show
+    render json: {Author: @author, Book: @author.books }, status: :ok
   end
 
   # GET /authors/new
