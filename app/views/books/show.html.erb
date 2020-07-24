@@ -2,7 +2,11 @@
 
 <p>
   <strong>Book title:</strong>
-  <%= @book.book_title %>
+  <%= @book.book_title.titleize %>
+</p>
+<p>
+  <strong>Authors:</strong>
+  <%= @book.authors.collect{|a| a.last_name}.join(',').titleize %>
 </p>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
