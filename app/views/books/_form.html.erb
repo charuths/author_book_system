@@ -19,7 +19,7 @@
   <div class = "field">
     <%= form.select(:author, Author.all.collect {|p| [ p.last_name, p.id ] },
                                            { :prompt => "Authors"},
-                                           { :multiple => true, :size => 5 }) %>
+                                           { :multiple => true, :size => 10 }) %>
 
   </div>
 
